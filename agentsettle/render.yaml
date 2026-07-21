@@ -1,0 +1,16 @@
+# Render blueprint for the AgentSettle dashboard.
+# The dashboard runs in demo mode with no configuration, so this deploys as-is.
+# Point Render at your GitHub repo → New → Blueprint.
+
+services:
+  - type: web
+    name: agentsettle-web
+    runtime: node
+    rootDir: web
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "20"

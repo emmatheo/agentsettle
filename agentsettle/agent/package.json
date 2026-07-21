@@ -1,0 +1,19 @@
+{
+  "name": "@agentsettle/agent",
+  "version": "0.1.0",
+  "description": "Example autonomous treasury-rebalancer agent running on Arc testnet",
+  "type": "module",
+  "scripts": {
+    "setup": "tsx src/setup.ts",
+    "start": "tsx src/rebalancer.ts"
+  },
+  "dependencies": {
+    "@agentsettle/sdk": "file:../sdk",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "dotenv": "^16.4.5"
+  }
+}

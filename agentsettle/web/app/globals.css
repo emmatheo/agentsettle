@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-base text-fg font-sans antialiased;
+  background-image:
+    radial-gradient(60rem 40rem at 80% -10%, rgba(0, 240, 255, 0.05), transparent),
+    radial-gradient(50rem 40rem at 0% 110%, rgba(16, 185, 129, 0.04), transparent);
+  background-attachment: fixed;
+}
+
+@layer components {
+  /* Glass panel — the base surface of the whole terminal */
+  .glass {
+    @apply rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-xl;
+  }
+  .glass-hover {
+    @apply transition-colors hover:border-white/20 hover:bg-white/[0.035];
+  }
+
+  /* Uppercase micro-label above every data field */
+  .eyebrow {
+    @apply text-2xs font-medium uppercase tracking-[0.16em] text-faint font-mono;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium
+           transition-all disabled:cursor-not-allowed disabled:opacity-40;
+  }
+  .btn-arc {
+    @apply btn bg-arc text-base hover:shadow-glow;
+  }
+  .btn-glass {
+    @apply btn border border-white/10 bg-white/[0.03] text-fg hover:border-white/25 hover:bg-white/[0.06];
+  }
+  .btn-danger {
+    @apply btn border border-danger/30 bg-danger/10 text-danger hover:bg-danger/20;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 font-mono text-2xs;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-white/10 bg-base/60 px-3 py-2 font-mono text-sm text-fg
+           placeholder:text-faint focus:border-arc/60 focus:outline-none focus:ring-1 focus:ring-arc/30;
+  }
+
+  /* Faint grid backdrop used behind hero/feature zones */
+  .gridlines {
+    @apply bg-grid;
+    background-size: 32px 32px;
+  }
+}
+
+/* Thin custom scrollbars to match the terminal feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

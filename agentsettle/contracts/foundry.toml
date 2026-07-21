@@ -1,0 +1,18 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+test = "test"
+script = "script"
+solc_version = "0.8.24"
+optimizer = true
+optimizer_runs = 800
+evm_version = "cancun"
+
+[rpc_endpoints]
+arc_testnet = "https://rpc.testnet.arc.network"
+
+# Arc notes:
+# - Chain ID 5042002. Gas is paid in USDC (native, 18-decimal at protocol level).
+# - Verify contracts on https://testnet.arcscan.app after deployment.
+# - Fund the deployer key from https://faucet.circle.com (select Arc Testnet).
