@@ -86,7 +86,17 @@ export function useAgentState(wallet: Address): LiveAgentState {
   };
 }
 
-export type FeedKind = "payment" | "execute" | "deposit" | "withdraw" | "policy" | "target" | "deploy";
+export type FeedKind =
+  | "payment"
+  | "execute"
+  | "deposit"
+  | "withdraw"
+  | "policy"
+  | "target"
+  | "deploy"
+  | "fund"
+  | "pause"
+  | "drain";
 
 export interface FeedRow {
   key: string;
