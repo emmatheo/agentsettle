@@ -1,0 +1,779 @@
+/* ==========================================================================
+   AgentSettle — marketing landing (dark editorial, toxic-emerald)
+   Fully scoped under .mkt so it never touches the dashboard's light theme.
+   Every value references the design tokens below — no magic numbers.
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500;600&display=swap");
+
+.mkt {
+  /* Typography */
+  --font-sans: "Geist", system-ui, sans-serif;
+  --font-display: "Instrument Serif", serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  /* Strict spacing (8px grid) */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  --space-xl: 64px;
+
+  /* Committed palette — near-black + a single toxic emerald (duotone) */
+  --bg: #060a07;
+  --bg-2: #08110b;
+  --surface: #0b120d;
+  --surface-2: #0f1912;
+  --surface-3: #132018;
+  --border: rgba(61, 251, 143, 0.14);
+  --border-strong: rgba(61, 251, 143, 0.32);
+  --text: #e6f0e8;
+  --muted: #8aa090;
+  --faint: #5c7365;
+  --accent: #3dfb8f;
+  --accent-glow: #6bffa8;
+  --accent-deep: #0e2a1a;
+  --accent-ink: #04160c;
+
+  position: relative;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  overflow-x: clip;
+  background-image:
+    radial-gradient(115% 80% at 82% -12%, rgba(61, 251, 143, 0.11), transparent 58%),
+    radial-gradient(80% 60% at -8% 8%, rgba(61, 251, 143, 0.06), transparent 55%);
+}
+
+/* Paint the whole document dark only while the landing is mounted. */
+body:has(.mkt) {
+  background: #060a07;
+}
+
+.mkt *,
+.mkt *::before,
+.mkt *::after {
+  box-sizing: border-box;
+}
+
+.mkt ::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* --- Layout shell ---------------------------------------------------------- */
+.mkt-shell {
+  width: 100%;
+  max-width: 1160px;
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
+
+.mkt-section {
+  padding-block: var(--space-xl);
+  scroll-margin-top: 80px;
+}
+
+/* Faint terminal grid, applied per-section (never full-bleed loud). */
+.mkt-grid-bg {
+  position: relative;
+}
+.mkt-grid-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(61, 251, 143, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(61, 251, 143, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(80% 70% at 50% 40%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(80% 70% at 50% 40%, #000 40%, transparent 100%);
+  pointer-events: none;
+}
+
+/* --- Shared type ----------------------------------------------------------- */
+.mkt-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.mkt-kicker::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.6;
+}
+
+.mkt-h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(52px, 8vw, 104px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+}
+.mkt-h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.mkt-h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(34px, 4.6vw, 60px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.mkt-h2 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.mkt-lede {
+  color: var(--muted);
+  font-size: clamp(16px, 1.4vw, 19px);
+  max-width: 52ch;
+}
+
+.mkt-mono {
+  font-family: var(--font-mono);
+}
+
+/* --- Buttons --------------------------------------------------------------- */
+.mkt-btn {
+  --_pad-y: 12px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--_pad-y) var(--space-md);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.18s ease,
+    background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+  overflow: hidden;
+  isolation: isolate;
+}
+.mkt-btn svg {
+  transition: transform 0.18s ease;
+}
+.mkt-btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.mkt-btn--primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: 0 0 0 1px rgba(61, 251, 143, 0.3), 0 10px 30px -14px rgba(61, 251, 143, 0.7);
+}
+.mkt-btn--primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, 0.55) 50%, transparent 80%);
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+}
+.mkt-btn--primary:hover {
+  background: var(--accent-glow);
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgba(107, 255, 168, 0.5), 0 16px 40px -14px rgba(61, 251, 143, 0.85);
+}
+.mkt-btn--primary:hover::before {
+  transform: translateX(120%);
+}
+.mkt-btn--primary:hover svg {
+  transform: translateX(3px);
+}
+
+.mkt-btn--ghost {
+  background: rgba(61, 251, 143, 0.04);
+  color: var(--text);
+  border-color: var(--border);
+}
+.mkt-btn--ghost:hover {
+  border-color: var(--border-strong);
+  background: rgba(61, 251, 143, 0.09);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -18px rgba(61, 251, 143, 0.6);
+}
+.mkt-btn--ghost:hover svg {
+  transform: translateX(3px);
+}
+
+/* --- Nav ------------------------------------------------------------------- */
+.mkt-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--border);
+  background: rgba(6, 10, 7, 0.72);
+  backdrop-filter: blur(14px);
+}
+.mkt-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-block: var(--space-sm);
+}
+.mkt-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 24px;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-decoration: none;
+}
+.mkt-logo b {
+  font-weight: 400;
+  font-style: italic;
+  color: var(--accent);
+}
+.mkt-navlinks {
+  display: none;
+  align-items: center;
+  gap: var(--space-md);
+}
+.mkt-navlink {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  position: relative;
+  padding-block: 4px;
+  transition: color 0.18s ease;
+}
+.mkt-navlink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 0;
+  background: var(--accent);
+  transition: width 0.22s ease;
+}
+.mkt-navlink:hover {
+  color: var(--text);
+}
+.mkt-navlink:hover::after {
+  width: 100%;
+}
+.mkt-nav-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.mkt-status {
+  display: none;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+.mkt-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(61, 251, 143, 0.6);
+  animation: mkt-pulse 1.8s ease-out infinite;
+}
+@keyframes mkt-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(61, 251, 143, 0.55); }
+  100% { box-shadow: 0 0 0 8px rgba(61, 251, 143, 0); }
+}
+
+/* --- Hero ------------------------------------------------------------------ */
+.mkt-hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+  padding-block: clamp(var(--space-lg), 8vw, 96px) var(--space-xl);
+}
+.mkt-hero-copy > * + * {
+  margin-top: var(--space-md);
+}
+.mkt-hero-h1-wrap {
+  margin-top: var(--space-sm);
+}
+.mkt-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  padding-top: var(--space-xs);
+}
+.mkt-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  padding-top: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--faint);
+}
+.mkt-trust span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Live stat cards (repurposed from the reference's price boxes) */
+.mkt-hero-visual {
+  position: relative;
+  display: grid;
+  gap: var(--space-sm);
+}
+.mkt-stat-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+.mkt-statcard {
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.mkt-statcard:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 44px -28px rgba(61, 251, 143, 0.5);
+}
+.mkt-stat-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.mkt-stat-value {
+  margin-top: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: clamp(30px, 3.4vw, 40px);
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.mkt-stat-value b {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Mascot */
+.mkt-mascot-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: var(--space-lg) 0 var(--space-xs);
+}
+.mkt-mascot-stage::after {
+  content: "";
+  position: absolute;
+  inset: 12% 22% auto 22%;
+  height: 60%;
+  background: radial-gradient(closest-side, rgba(61, 251, 143, 0.22), transparent 75%);
+  filter: blur(10px);
+  z-index: 0;
+}
+.mkt-mascot {
+  position: relative;
+  z-index: 1;
+  width: clamp(180px, 26vw, 260px);
+  height: auto;
+  animation: mkt-float 6s ease-in-out infinite;
+}
+@keyframes mkt-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.mkt-mascot .mkt-eye {
+  transform-origin: center;
+  animation: mkt-blink 5.2s steps(1) infinite;
+}
+@keyframes mkt-blink {
+  0%, 92%, 100% { opacity: 1; }
+  94%, 98% { opacity: 0.15; }
+}
+
+/* --- Section header (editorial, left/offset — not centered) --------------- */
+.mkt-head {
+  max-width: 60ch;
+  margin-bottom: var(--space-lg);
+}
+.mkt-head > * + * {
+  margin-top: var(--space-sm);
+}
+.mkt-head--offset {
+  margin-left: auto;
+  text-align: right;
+}
+.mkt-head--offset .mkt-kicker::before {
+  order: 2;
+}
+
+/* --- Why: asymmetric modular grid (1 large + 2 stacked) ------------------- */
+.mkt-why {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+.mkt-feature {
+  position: relative;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  overflow: hidden;
+  transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+.mkt-feature::after {
+  content: "";
+  position: absolute;
+  inset: -1px -1px auto -1px;
+  height: 120px;
+  background: radial-gradient(90% 100% at 20% 0%, rgba(61, 251, 143, 0.14), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.mkt-feature:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-4px);
+  background: var(--surface-2);
+  box-shadow: 0 30px 60px -34px rgba(61, 251, 143, 0.5);
+}
+.mkt-feature:hover::after {
+  opacity: 1;
+}
+.mkt-feature--lg {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%;
+}
+.mkt-feature-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-md);
+  background: var(--accent-deep);
+  border: 1px solid var(--border-strong);
+  color: var(--accent);
+  margin-bottom: var(--space-md);
+}
+.mkt-feature h3 {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: var(--space-xs);
+}
+.mkt-feature p {
+  color: var(--muted);
+  font-size: 15px;
+}
+.mkt-feature-num {
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.9;
+}
+
+/* --- Settlement primitives: editorial numbered rows ----------------------- */
+.mkt-prims {
+  display: grid;
+  gap: var(--space-xs);
+}
+.mkt-prim {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: var(--space-md);
+  align-items: center;
+  padding: var(--space-md) var(--space-sm);
+  border-top: 1px solid var(--border);
+  transition: background 0.2s ease, padding-left 0.2s ease;
+}
+.mkt-prim:last-child {
+  border-bottom: 1px solid var(--border);
+}
+.mkt-prim:hover {
+  background: linear-gradient(90deg, rgba(61, 251, 143, 0.06), transparent 70%);
+  padding-left: var(--space-md);
+}
+.mkt-prim-idx {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--faint);
+}
+.mkt-prim-body h3 {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.05;
+  color: var(--text);
+}
+.mkt-prim-body p {
+  color: var(--muted);
+  font-size: 15px;
+  margin-top: 4px;
+  max-width: 62ch;
+}
+.mkt-prim-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+
+/* --- Steps: 2x2 offset grid ----------------------------------------------- */
+.mkt-steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+.mkt-step {
+  position: relative;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+}
+.mkt-step:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px -34px rgba(61, 251, 143, 0.5);
+}
+.mkt-step-num {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent);
+  border: 1px solid var(--border-strong);
+  background: var(--accent-deep);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  display: inline-block;
+  margin-bottom: var(--space-md);
+}
+.mkt-step h3 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 1.05;
+  margin-bottom: var(--space-xs);
+}
+.mkt-step p {
+  color: var(--muted);
+  font-size: 15px;
+  margin-bottom: var(--space-md);
+}
+.mkt-step-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  transition: gap 0.18s ease;
+}
+.mkt-step-link:hover {
+  gap: 14px;
+}
+
+/* --- Contract addresses ---------------------------------------------------- */
+.mkt-addr-panel {
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+.mkt-addr-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  border-bottom: 1px dashed var(--border);
+}
+.mkt-addr-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.mkt-addr-row:first-child {
+  padding-top: 0;
+}
+.mkt-addr-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.mkt-addr-val {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mkt-copy {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: rgba(61, 251, 143, 0.05);
+  color: var(--muted);
+  cursor: pointer;
+  flex: none;
+  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease, transform 0.12s ease;
+}
+.mkt-copy:hover {
+  color: var(--accent);
+  border-color: var(--border-strong);
+  background: rgba(61, 251, 143, 0.1);
+}
+.mkt-copy:active {
+  transform: scale(0.92);
+}
+
+/* --- CTA band -------------------------------------------------------------- */
+.mkt-cta {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: clamp(var(--space-lg), 6vw, 80px) var(--space-lg);
+  background:
+    radial-gradient(120% 140% at 50% -20%, rgba(61, 251, 143, 0.16), transparent 60%),
+    var(--surface);
+  text-align: center;
+}
+.mkt-cta > * + * {
+  margin-top: var(--space-md);
+}
+.mkt-cta .mkt-cta-row {
+  justify-content: center;
+}
+
+/* --- Footer ---------------------------------------------------------------- */
+.mkt-footer {
+  border-top: 1px solid var(--border);
+  margin-top: var(--space-xl);
+}
+.mkt-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-block: var(--space-lg);
+}
+.mkt-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+.mkt-foot-note {
+  border-top: 1px solid var(--border);
+  padding-block: var(--space-md);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--faint);
+}
+
+/* --- Reveal-on-scroll (JS toggles [data-shown]) --------------------------- */
+.mkt-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.mkt-reveal[data-shown="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Responsive: desktop asymmetry ---------------------------------------- */
+@media (min-width: 720px) {
+  .mkt-navlinks { display: flex; }
+  .mkt-status { display: inline-flex; }
+  .mkt-steps { grid-template-columns: 1fr 1fr; }
+  /* Offset the 2nd and 3rd step cards for an editorial, non-uniform rhythm. */
+  .mkt-step:nth-child(2) { transform: translateY(28px); }
+  .mkt-step:nth-child(2):hover { transform: translateY(24px); }
+  .mkt-step:nth-child(3) { transform: translateY(-16px); }
+  .mkt-step:nth-child(3):hover { transform: translateY(-20px); }
+}
+
+@media (min-width: 900px) {
+  .mkt-hero {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+  .mkt-why {
+    grid-template-columns: 1.25fr 1fr;
+    grid-auto-rows: 1fr;
+  }
+  .mkt-why > .mkt-feature--lg {
+    grid-row: span 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mkt *,
+  .mkt *::before,
+  .mkt *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
