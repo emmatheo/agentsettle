@@ -107,7 +107,7 @@ export function DeployAgentSlideOver({
             <input className="input" value={validHours} onChange={(e) => setValidHours(e.target.value)} />
           </Field>
 
-          <div className="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div className="rounded-lg border border-arc/15 bg-white/[0.02] p-3.5">
             <p className="eyebrow mb-2">Policy preview</p>
             <div className="space-y-1.5 font-mono text-2xs text-mute">
               <Row k="daily allowance" v={safePreview(dailyLimit)} />

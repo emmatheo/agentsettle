@@ -66,7 +66,7 @@ export function AgentCard({
             <p className="font-mono text-2xs text-faint">agent {s.agent ? short(s.agent) : "—"}</p>
           </div>
         </div>
-        <span className={`chip border-slate-200 ${status.text}`}>
+        <span className={`chip border-arc/15 ${status.text}`}>
           <StatusDot tone={status.dot} />
           {status.label}
         </span>
@@ -102,7 +102,7 @@ export function AgentCard({
         )}
       </div>
 
-      <div className="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+      <div className="rounded-lg border border-arc/15 bg-white/[0.02] p-3.5">
         <div className="mb-2 flex items-center gap-1.5">
           <Lock size={11} className="text-arc" />
           <span className="eyebrow text-arc/80">On-chain policy guardrails</span>
@@ -123,14 +123,14 @@ export function AgentCard({
           <span className="chip border-arc/25 bg-arc/5 text-arc">
             <SlidersHorizontal size={11} /> Max ${s.maxPerTx !== undefined ? formatUsdc(s.maxPerTx, 0) : "—"} / tx
           </span>
-          <span className={`chip border-slate-200 ${expiry.urgent ? "text-warn" : "text-mute"}`}>
+          <span className={`chip border-arc/15 ${expiry.urgent ? "text-warn" : "text-mute"}`}>
             <Clock size={11} /> Hot key {expiry.label}
           </span>
         </div>
 
         <div>
           <p className="mb-1.5 text-2xs text-faint">Owner</p>
-          <span className="chip border-slate-200 text-mute">{s.owner ? short(s.owner) : "—"}</span>
+          <span className="chip border-arc/15 text-mute">{s.owner ? short(s.owner) : "—"}</span>
         </div>
       </div>
 
