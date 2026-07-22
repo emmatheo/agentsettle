@@ -13,6 +13,9 @@ const KIND_META: Record<FeedKind, { icon: React.ReactNode; tone: string }> = {
   policy: { icon: <Pause size={13} />, tone: "text-mute border-white/10" },
   target: { icon: <CheckCircle2 size={13} />, tone: "text-mute border-white/10" },
   deploy: { icon: <Rocket size={13} />, tone: "text-ok border-ok/25 bg-ok/5" },
+  fund: { icon: <Wallet size={13} />, tone: "text-ok border-ok/25 bg-ok/5" },
+  pause: { icon: <Pause size={13} />, tone: "text-warn border-warn/25 bg-warn/5" },
+  drain: { icon: <ShieldAlert size={13} />, tone: "text-danger border-danger/25 bg-danger/5" },
 };
 
 export function TransactionFeed({ rows }: { rows: FeedRow[] }) {
