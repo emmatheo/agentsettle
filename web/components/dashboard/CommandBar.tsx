@@ -25,14 +25,14 @@ function Stat({ icon, label, value, accent }: { icon: React.ReactNode; label: st
 
 export function CommandBar({ stats, onDeploy }: { stats: Stats; onDeploy: () => void }) {
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200 bg-base/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-30 border-b border-arc/15 bg-base/70 backdrop-blur-xl">
       <div className="mx-auto flex max-w-[1600px] flex-wrap items-center gap-y-3 px-4 py-3 sm:px-6">
         <div className="flex items-center gap-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-arc/10 shadow-glow">
             <ShieldCheck size={18} className="text-arc" />
           </div>
           <div className="leading-tight">
-            <p className="font-semibold tracking-tight">
+            <p className="font-display text-xl font-normal leading-none tracking-tight">
               Agent<span className="text-arc">Settle</span>
             </p>
             <div className="flex items-center gap-1.5">
@@ -42,7 +42,7 @@ export function CommandBar({ stats, onDeploy }: { stats: Stats; onDeploy: () => 
           </div>
         </div>
 
-        <div className="order-3 flex w-full items-stretch divide-x divide-slate-200 overflow-x-auto lg:order-2 lg:mx-6 lg:w-auto lg:flex-1">
+        <div className="order-3 flex w-full items-stretch divide-x divide-arc/15 overflow-x-auto lg:order-2 lg:mx-6 lg:w-auto lg:flex-1">
           <Stat icon={<Layers size={16} />} label="Total Agent Wallets" value={stats.totalWallets !== undefined ? stats.totalWallets.toString() : "—"} accent="arc" />
           <Stat icon={<Users size={16} />} label="Registered Agents" value={stats.totalAgents !== undefined ? stats.totalAgents.toString() : "—"} />
           <Stat icon={<Activity size={16} />} label="My Agents" value={String(stats.myAgentCount)} />

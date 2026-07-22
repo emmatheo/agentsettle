@@ -61,8 +61,8 @@ export default function Dashboard() {
                 <section>
                   <div className="mb-3 flex items-center gap-2">
                     <Boxes size={16} className="text-mute" />
-                    <h2 className="text-sm font-semibold">Agent Fleet</h2>
-                    <span className="chip border-slate-200 text-faint">{wallets.length}</span>
+                    <h2 className="font-display text-xl font-normal leading-none">Agent Fleet</h2>
+                    <span className="chip border-arc/15 text-faint">{wallets.length}</span>
                   </div>
 
                   {!isConnected ? (

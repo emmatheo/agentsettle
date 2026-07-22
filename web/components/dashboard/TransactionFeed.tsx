@@ -10,8 +10,8 @@ const KIND_META: Record<FeedKind, { icon: React.ReactNode; tone: string }> = {
   execute: { icon: <Cpu size={13} />, tone: "text-arc border-arc/25 bg-arc/5" },
   deposit: { icon: <Wallet size={13} />, tone: "text-ok border-ok/25 bg-ok/5" },
   withdraw: { icon: <ShieldAlert size={13} />, tone: "text-warn border-warn/25 bg-warn/5" },
-  policy: { icon: <Pause size={13} />, tone: "text-mute border-slate-200" },
-  target: { icon: <CheckCircle2 size={13} />, tone: "text-mute border-slate-200" },
+  policy: { icon: <Pause size={13} />, tone: "text-mute border-arc/15" },
+  target: { icon: <CheckCircle2 size={13} />, tone: "text-mute border-arc/15" },
   deploy: { icon: <Rocket size={13} />, tone: "text-ok border-ok/25 bg-ok/5" },
   fund: { icon: <Wallet size={13} />, tone: "text-ok border-ok/25 bg-ok/5" },
   pause: { icon: <Pause size={13} />, tone: "text-warn border-warn/25 bg-warn/5" },
@@ -21,10 +21,10 @@ const KIND_META: Record<FeedKind, { icon: React.ReactNode; tone: string }> = {
 export function TransactionFeed({ rows }: { rows: FeedRow[] }) {
   return (
     <div className="glass flex h-full flex-col">
-      <div className="flex items-center justify-between border-b border-slate-200 px-5 py-3.5">
+      <div className="flex items-center justify-between border-b border-arc/15 px-5 py-3.5">
         <div className="flex items-center gap-2">
           <Activity size={15} className="text-arc" />
-          <h2 className="text-sm font-semibold">Live Settlement Feed</h2>
+          <h2 className="font-display text-xl font-normal leading-none">Live Settlement Feed</h2>
         </div>
         <span className="flex items-center gap-1.5 font-mono text-2xs text-mute">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-ok" />
@@ -50,13 +50,13 @@ export function TransactionFeed({ rows }: { rows: FeedRow[] }) {
               <motion.a
                 key={r.key}
                 layout
-                initial={{ opacity: 0, backgroundColor: "rgba(37,99,235,0.10)" }}
+                initial={{ opacity: 0, backgroundColor: "rgba(61,251,143,0.12)" }}
                 animate={{ opacity: 1, backgroundColor: "rgba(0,0,0,0)" }}
                 transition={{ duration: 0.6 }}
                 href={r.txHash ? `${EXPLORER}/tx/${r.txHash}` : undefined}
                 target="_blank"
                 rel="noreferrer"
-                className="flex w-full items-center gap-3 border-b border-slate-100 px-5 py-2.5 text-left hover:bg-slate-50"
+                className="flex w-full items-center gap-3 border-b border-arc/10 px-5 py-2.5 text-left hover:bg-white/[0.02]"
               >
                 <span className={`inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md border ${meta.tone}`}>
                   {meta.icon}
