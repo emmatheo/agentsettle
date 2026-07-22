@@ -31,7 +31,7 @@ export function Progress({ value, max, tone }: { value: number; max: number; ton
   const t = tone ?? auto;
   const fill = t === "danger" ? "bg-danger" : t === "warn" ? "bg-warn" : "bg-arc";
   return (
-    <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/[0.06]">
+    <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
       <motion.div
         className={`h-full rounded-full ${fill}`}
         initial={{ width: 0 }}
@@ -56,7 +56,7 @@ export function Tabs({
   onChange: (id: string) => void;
 }) {
   return (
-    <div className="inline-flex gap-1 rounded-lg border border-white/10 bg-white/[0.02] p-1">
+    <div className="inline-flex gap-1 rounded-lg border border-slate-200 bg-slate-50 p-1">
       {tabs.map((t) => {
         const on = t.id === active;
         return (
@@ -64,7 +64,7 @@ export function Tabs({
             key={t.id}
             onClick={() => onChange(t.id)}
             className={`relative inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm transition-colors ${
-              on ? "text-base" : "text-mute hover:text-fg"
+              on ? "text-white" : "text-mute hover:text-fg"
             }`}
           >
             {on && (
@@ -111,22 +111,22 @@ export function SlideOver({
       {open && (
         <>
           <motion.div
-            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-40 bg-slate-900/30 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
           />
           <motion.aside
-            className="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-l border-white/10 bg-raised/95 backdrop-blur-2xl"
+            className="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-l border-slate-200 bg-raised/95 backdrop-blur-2xl"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 260, damping: 30 }}
           >
-            <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+            <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
               <h3 className="font-mono text-sm font-semibold tracking-wide">{title}</h3>
-              <button onClick={onClose} className="rounded-md p-1 text-mute hover:bg-white/5 hover:text-fg">
+              <button onClick={onClose} className="rounded-md p-1 text-mute hover:bg-slate-100 hover:text-fg">
                 <X size={16} />
               </button>
             </div>

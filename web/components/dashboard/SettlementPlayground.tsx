@@ -84,14 +84,14 @@ function EscrowDemo() {
               <div className="flex-1">
                 <div
                   className={`rounded-lg border p-3 transition-colors ${
-                    done ? "border-ok/40 bg-ok/5" : "border-white/10 bg-white/[0.02]"
+                    done ? "border-ok/40 bg-ok/5" : "border-slate-200 bg-slate-50"
                   }`}
                 >
                   <div className="mb-1 flex items-center gap-1.5">
                     {done ? (
                       <CircleCheck size={14} className="text-ok" />
                     ) : (
-                      <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-white/20 text-[9px] text-mute">
+                      <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-slate-300 text-[9px] text-mute">
                         {i + 1}
                       </span>
                     )}
@@ -108,7 +108,7 @@ function EscrowDemo() {
         })}
       </div>
 
-      <div className="mt-4 flex items-center justify-between rounded-lg border border-white/[0.07] bg-white/[0.015] p-3">
+      <div className="mt-4 flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 p-3">
         <p className="text-2xs text-mute">
           If the condition isn&apos;t met before the deadline, the escrow{" "}
           <span className="text-warn">auto-refunds</span> the payer — funds can never strand.
@@ -154,18 +154,18 @@ function NanopaymentDemo() {
 
   return (
     <div className="grid gap-3 sm:grid-cols-2">
-      <div className="rounded-lg border border-white/[0.07] bg-white/[0.015] p-4">
+      <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
         <p className="eyebrow">Off-chain stream</p>
         <p className="mt-1 font-mono text-3xl font-semibold tabular-nums text-arc">
           +${accrued.toFixed(4)}
         </p>
         <p className="mt-1 font-mono text-2xs text-ok">{streaming ? "+$0.0004 / sec · signed vouchers" : "idle"}</p>
-        <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-white/[0.06]">
+        <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-slate-200">
           {streaming && <div className="h-full w-1/3 rounded-full bg-arc/60 animate-sweep" />}
         </div>
       </div>
 
-      <div className="rounded-lg border border-white/[0.07] bg-white/[0.015] p-4">
+      <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
         <p className="eyebrow">On-chain settled</p>
         <p className="mt-1 font-mono text-3xl font-semibold tabular-nums text-ok">${settled.toFixed(4)}</p>
         <p className="mt-1 text-2xs text-mute">One transaction settles the whole tab.</p>
@@ -204,7 +204,7 @@ function AtomicDemo() {
 
   return (
     <div className="grid gap-3 sm:grid-cols-[1fr_1.2fr]">
-      <div className="flex flex-col justify-between rounded-lg border border-white/[0.07] bg-white/[0.015] p-4">
+      <div className="flex flex-col justify-between rounded-lg border border-slate-200 bg-slate-50 p-4">
         <div>
           <p className="eyebrow">Machine-to-machine transfer</p>
           <p className="mt-2 font-mono text-sm">
@@ -217,7 +217,7 @@ function AtomicDemo() {
         </button>
       </div>
 
-      <div className="rounded-lg border border-white/[0.07] bg-white/[0.015] p-4">
+      <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
         <p className="eyebrow">Auto-generated receipt</p>
         <AnimatePresence mode="wait">
           {receipt ? (
