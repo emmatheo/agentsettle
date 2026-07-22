@@ -45,7 +45,7 @@ export function WalletButton() {
         <span className="hidden text-mute sm:inline">
           {bal ? `${Number(bal.formatted).toFixed(2)} ${bal.symbol}` : "—"}
         </span>
-        <span className="h-3 w-px bg-white/10 hidden sm:block" />
+        <span className="h-3 w-px bg-slate-200 hidden sm:block" />
         {short(address!)}
         <ChevronDown size={13} className="text-faint transition-transform group-hover:translate-y-0.5" />
       </span>

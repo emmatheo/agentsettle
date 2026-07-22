@@ -62,7 +62,7 @@ export default function Dashboard() {
                   <div className="mb-3 flex items-center gap-2">
                     <Boxes size={16} className="text-mute" />
                     <h2 className="text-sm font-semibold">Agent Fleet</h2>
-                    <span className="chip border-white/10 text-faint">{wallets.length}</span>
+                    <span className="chip border-slate-200 text-faint">{wallets.length}</span>
                   </div>
 
                   {!isConnected ? (
