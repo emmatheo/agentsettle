@@ -44,10 +44,19 @@ your live demo.
 
 ## If you're not using the blueprint (manual setup)
 New → **Web Service** → connect repo, then set:
-- **Root Directory:** `web`
-- **Build Command:** `npm install && npm run build`
-- **Start Command:** `npm run start`
+- **Root Directory:** leave **blank** (use the repo root). The build/start
+  commands below `cd web` themselves, so you do *not* set a Root Directory of
+  `web`. Setting it can trigger `Root directory "web" does not exist` if the
+  service setting ever falls out of sync with the checkout.
+- **Build Command:** `cd web && npm install && npm run build`
+- **Start Command:** `cd web && npm run start`
 - **Environment:** add the three `NEXT_PUBLIC_AGENTSETTLE_*` vars.
+
+> **Already hit `Root directory "web" does not exist`?** Open your service →
+> **Settings** → **Build & Deploy**, clear the **Root Directory** field (leave
+> it blank), and switch the Build/Start commands to the `cd web && …` forms
+> above. Then **Manual Deploy → Clear build cache & deploy**. Blueprint users
+> get this automatically on the next sync of `render.yaml`.
 
 ## Important: changing addresses later
 `NEXT_PUBLIC_*` values are baked in at **build time**. If you redeploy the
