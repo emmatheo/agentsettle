@@ -1,15 +1,21 @@
 # Render blueprint for the AgentSettle dashboard.
 # The dashboard runs in demo mode with no configuration, so this deploys as-is.
 # Point Render at your GitHub repo → New → Blueprint.
+#
+# Note: we deploy from the repo ROOT and `cd web` inside the build/start
+# commands rather than setting a service "Root Directory" of `web`. Render
+# validates the Root Directory before the build and fails with
+# 'Root directory "web" does not exist' whenever that setting is out of sync
+# with the checkout. Running the commands from the repo root avoids that check
+# entirely while still building and starting the Next.js app that lives in web/.
 
 services:
   - type: web
     name: agentsettle-web
     runtime: node
-    rootDir: web
     plan: free
-    buildCommand: npm install && npm run build
-    startCommand: npm run start
+    buildCommand: cd web && npm install && npm run build
+    startCommand: cd web && npm run start
     autoDeploy: true
     envVars:
       - key: NODE_VERSION
